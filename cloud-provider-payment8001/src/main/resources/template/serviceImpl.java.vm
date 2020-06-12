@@ -1,0 +1,57 @@
+package ${package.ServiceImpl};
+
+import com.gdws.common.core.PageResult;
+import ${package.Entity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import ${package.Service}.${table.serviceName};
+import ${superServiceImplClassPackage};
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
+import org.springframework.stereotype.Service;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * $!{table.comment} 服务层实现类
+ *
+ * @author ${author}
+ * @date ${date}
+ */
+@Service
+@Transactional
+public class ${table.serviceImplName} extends ${superServiceImplClass}<${table.mapperName}, ${entity}> implements ${table.serviceName} {
+
+
+    @Autowired
+    private ${table.mapperName} ${table.entityPath}Mapper;
+
+	/**
+	 * $!{table.comment} 通用分页
+	 *
+	 * @author   ${author}
+	 * @date     ${date}
+	 * @param params   分页条件参数map  <br>
+	 *   参数1：sortName  排序字段名称<br>
+	 *   参数2：sortOrder    排序字段升降级类型 desc,asc<br>
+	 * @return PageResult
+	 */
+    @Override
+    public PageResult<${entity}> selectPageList(Map<String,Object> params){
+    	//当前页码数
+    	Integer currentPage = Integer.parseInt(params.get("currentPage").toString());
+    	//每页显示记录数
+    	Integer pageSize = Integer.parseInt(params.get("pageSize").toString());
+
+    	PageResult<${entity}> pageResult = new PageResult<${entity}>();
+    	//分页插件
+    	Page<${entity}> page = PageHelper.startPage(currentPage, pageSize);
+    	//查询分页信息集合
+    	List<${entity}> list = ${table.entityPath}Mapper.selectPageList(params);
+    	pageResult.setRows(list);
+    	pageResult.setTotal(page.getTotal());
+    	return pageResult;
+    }
+ 
+}

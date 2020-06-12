@@ -1,0 +1,29 @@
+package ${package.Service};
+
+import com.gdws.common.core.PageResult;
+import ${package.Entity}.${entity};
+import ${superServiceClassPackage};
+import java.util.Map;
+
+/**
+ * $!{table.comment} 服务类
+ *
+ * @author ${author}
+ * @since ${date}
+ */
+public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
+
+    /**
+	 * $!{table.comment} 通用分页
+	 *
+	 * @author   ${author}
+	 * @date     ${date}
+	 * @param params   分页条件参数map  <br>
+	 *   参数1：sortName  排序字段名称<br>
+	 *   参数2：sortOrder    排序字段升降级类型 desc,asc<br>
+	 * @return PageResult
+	 */
+	public PageResult<${entity}> selectPageList(Map<String,Object> params);
+
+
+}

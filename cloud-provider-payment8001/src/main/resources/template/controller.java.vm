@@ -1,0 +1,143 @@
+package ${package.Controller};
+
+#if(${restControllerStyle})
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+#else
+import org.springframework.stereotype.Controller;
+#end
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+import java.util.Map;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestBody;
+import ${package.Service}.${table.serviceName};
+import ${package.Entity}.${entity};
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * $!{table.comment} 控制层
+
+ * @author ${author}
+ * @date ${date}
+ */
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+#if(${superControllerClass})
+public class ${table.controllerName} extends ${superControllerClass} {
+#else
+public class ${table.controllerName} {
+#end
+
+    private final Logger logger = LoggerFactory.getLogger(${table.controllerName}.class);
+
+    @Autowired
+    public ${table.serviceName} ${table.entityPath}Service;
+
+    /**
+     * 
+     * 分页查询接口
+     * @author   ${author}
+     * @date     ${date}
+     * @param pageInfo   分页查询对象
+     * @return ResultVo
+     */
+	@RequestMapping(value="/get${entity}PageList",method={RequestMethod.POST})
+	@ResponseBody
+	public ResultVo<PageResult<${entity}>> get${entity}PageList(@RequestBody PageCommonInfo pageInfo) {
+	   	try {
+			//条件参数
+			Map<String, Object> params = CommonUtil.getPageInfoParams(pageInfo);
+			//根据条件获取用户信息（分页）
+			PageResult<${entity}> pageResult = ${table.entityPath}Service.selectPageList(params);
+    		return ResultVoFactory.successResult(pageResult);
+		} catch (Exception e) {
+			logger.error("获取分页异常:",e.getMessage());
+			return ResultVoFactory.errorResult("获取分页异常:"+e.getMessage());
+		}
+	}
+	
+	/**
+	 * 
+	 * 根据id，查询对象
+	 * @author   ${author}
+	 * @date     ${date}
+	 * @param id   主键ID
+	 * @return ResultVo
+	 */
+	@RequestMapping(value="/get${entity}ById",method={RequestMethod.GET})
+	@ResponseBody
+	public ResultVo<${entity}> get${entity}ById(@RequestParam("id") Long id) {
+        //返回对象
+		ResultVo<${entity}> resultVo = new ResultVo<>();
+		if (id == null) {
+			return ResultVoFactory.errorResult("参数传递错误ID");
+		}
+		try {
+		    //根据主键id，查询对象
+		    ${entity} ${table.entityPath} = ${table.entityPath}Service.selectById(id);
+		    resultVo = ResultVoFactory.successResult(${table.entityPath});
+		    return resultVo;
+		} catch (Exception e) {
+		    logger.error("根据id，获取数据异常:",e.getMessage());
+			return ResultVoFactory.errorResult("根据id，获取数据异常:"+e.getMessage());
+		}
+		
+	}
+	
+	/**
+	 * 新增或更新方法
+	 *
+	 * @author   ${author}
+	 * @date     ${date}
+	 * @param ${table.entityPath}
+	 * @return ResultVo
+	 */
+	@RequestMapping(value="/insertOrUpdate${entity}",method={RequestMethod.POST})
+	@ResponseBody
+	public ResultVo<String> insertOrUpdate${entity}(@RequestBody ${entity} ${table.entityPath}) {
+		try {
+		    //新增或修改数据
+		    ${table.entityPath}Service.insertOrUpdate(${table.entityPath});
+		    return ResultVoFactory.successResult("操作成功");
+		} catch (Exception e) {
+		    logger.error("新增或修改数据异常：",e.getMessage());
+			return ResultVoFactory.errorResult("新增或修改数据异常："+e.getMessage());
+		}
+	}
+	
+	/**
+	 * 删除方法
+	 *
+	 * @author   ${author}
+	 * @date     ${date}
+	 * @param  id  主键id
+	 * @return ResultVo
+	 */
+	@RequestMapping(value="/delete${entity}ById",method=RequestMethod.DELETE)
+	@ResponseBody
+	public ResultVo<String> delete${entity}ById(@RequestParam("id") Long id) {
+		//数据验证
+		if (id == null) {
+			return ResultVoFactory.errorResult("参数传递错误ID");
+		}
+		try {
+		    //根据id,删除数据
+		    ${table.entityPath}Service.deleteById(id);
+		    return ResultVoFactory.successResult("操作成功");
+		} catch (Exception e) {
+		    logger.error("根据id，删除数据异常：",e.getMessage());
+			return ResultVoFactory.errorResult("根据id，删除数据异常："+e.getMessage());
+		}
+	}
+}
