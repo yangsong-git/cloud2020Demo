@@ -1,9 +1,10 @@
-package com.ys.springcloud.entities.dao;
+package com.ys.springcloud.dao;
 
 import java.util.List;
 import java.util.Map;
-import com.ys.springcloud.entities.model.Payment;
+import com.ys.springcloud.model.Payment;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
   * 支付表 Mapper 接口
@@ -11,9 +12,10 @@ import com.baomidou.mybatisplus.mapper.BaseMapper;
  * @author yangsong
  * @date 2020-06-12
  */
+@Mapper
 public interface PaymentDao extends BaseMapper<Payment> {
 
-   /**
+   	/**
 	 * 支付表 通用分页
 	 *
 	 * @author   yangsong
@@ -24,5 +26,4 @@ public interface PaymentDao extends BaseMapper<Payment> {
 	 * @return List<Payment>
 	 */
     List<Payment> selectPageList(Map<String,Object> params);
-
 }

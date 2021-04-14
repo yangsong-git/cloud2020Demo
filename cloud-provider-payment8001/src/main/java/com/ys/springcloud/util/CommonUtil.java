@@ -1,6 +1,6 @@
 package com.ys.springcloud.util;
 
-import com.ys.springcloud.entities.core.PageCommonInfo;
+import com.ys.springcloud.core.PageCommonInfo;
 
 import java.util.HashMap;
 import java.util.Map;

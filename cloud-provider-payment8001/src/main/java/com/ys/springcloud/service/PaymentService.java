@@ -1,8 +1,9 @@
-package com.ys.springcloud.entities.service;
+package com.ys.springcloud.service;
 
-import com.ys.springcloud.entities.core.PageResult;
-import com.ys.springcloud.entities.model.Payment;
+import com.ys.springcloud.core.PageResult;
+import com.ys.springcloud.model.Payment;
 import com.baomidou.mybatisplus.service.IService;
+
 import java.util.Map;
 
 /**
@@ -24,6 +25,4 @@ public interface PaymentService extends IService<Payment> {
 	 * @return PageResult
 	 */
 	public PageResult<Payment> selectPageList(Map<String,Object> params);
-
-
 }

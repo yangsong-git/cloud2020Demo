@@ -1,10 +1,10 @@
-package com.ys.springcloud.entities.service.impl;
+package com.ys.springcloud.service.impl;
 
-import com.ys.springcloud.entities.core.PageResult;
-import com.ys.springcloud.entities.model.Payment;
-import com.ys.springcloud.entities.dao.PaymentDao;
-import com.ys.springcloud.entities.service.PaymentService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.ys.springcloud.core.PageResult;
+import com.ys.springcloud.dao.PaymentDao;
+import com.ys.springcloud.model.Payment;
+import com.ys.springcloud.service.PaymentService;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
@@ -53,5 +53,5 @@ public class PaymentServiceImpl extends ServiceImpl<PaymentDao, Payment> impleme
     	pageResult.setTotal(page.getTotal());
     	return pageResult;
     }
- 
+
 }

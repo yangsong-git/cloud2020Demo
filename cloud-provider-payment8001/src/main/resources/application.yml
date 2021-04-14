@@ -10,8 +10,8 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/db2019?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
     username: root
-    password: 1234
+    password: root
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.ys.springcloud.entities  #所有entity别名所在包
+  type-aliases-package: com.ys.springcloud.model  #所有model别名所在包

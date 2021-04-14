@@ -1,10 +1,12 @@
-package com.ys.springcloud.entities.model;
+package com.ys.springcloud.model;
 
 import java.io.Serializable;
 
 import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 /**
  * 支付表
@@ -12,6 +14,8 @@ import com.baomidou.mybatisplus.activerecord.Model;
  * @author yangsong
  * @since 2020-06-12
  */
+@AllArgsConstructor
+@NoArgsConstructor
 public class Payment extends Model<Payment> {
 
     private static final long serialVersionUID = 1L;

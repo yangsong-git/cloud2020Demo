@@ -1,20 +1,16 @@
-package com.ys.springcloud.entities.controller;
-
-import com.ys.springcloud.entities.core.PageCommonInfo;
-import com.ys.springcloud.entities.core.PageResult;
-import com.ys.springcloud.entities.core.ResultVo;
-import com.ys.springcloud.entities.core.ResultVoFactory;
+package com.ys.springcloud.controller;
+import com.ys.springcloud.core.PageCommonInfo;
+import com.ys.springcloud.core.PageResult;
+import com.ys.springcloud.core.ResultVo;
+import com.ys.springcloud.core.ResultVoFactory;
 import com.ys.springcloud.util.CommonUtil;
 import org.springframework.stereotype.Controller;
 import java.util.Map;
-import org.springframework.web.bind.annotation.RequestMapping;
+
+import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RequestBody;
-import com.ys.springcloud.entities.service.PaymentService;
-import com.ys.springcloud.entities.model.Payment;
+import com.ys.springcloud.service.PaymentService;
+import com.ys.springcloud.model.Payment;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -24,7 +20,7 @@ import org.slf4j.LoggerFactory;
  * @author yangsong
  * @date 2020-06-12
  */
-@Controller
+@RestController
 @RequestMapping("/payment")
 public class PaymentController {
 
@@ -41,10 +37,13 @@ public class PaymentController {
      * @param pageInfo   分页查询对象
      * @return ResultVo
      */
-	@RequestMapping(value="/getPaymentPageList",method={RequestMethod.POST})
-	@ResponseBody
-	public ResultVo<PageResult<Payment>> getPaymentPageList(@RequestBody PageCommonInfo pageInfo) {
+	@PostMapping(value="/getPaymentPageList/{currentPage}/{pageSize}/")
+	public ResultVo<PageResult<Payment>> getPaymentPageList(@PathVariable("currentPage") Integer currentPage,
+															@PathVariable("pageSize") Integer pageSize) {
 	   	try {
+			 PageCommonInfo pageInfo = new PageCommonInfo();
+			 pageInfo.setCurrentPage(currentPage);
+			 pageInfo.setPageSize(pageSize);
 			//条件参数
 			Map<String, Object> params = CommonUtil.getPageInfoParams(pageInfo);
 			//根据条件获取用户信息（分页）
@@ -64,9 +63,8 @@ public class PaymentController {
 	 * @param id   主键ID
 	 * @return ResultVo
 	 */
-	@RequestMapping(value="/getPaymentById",method={RequestMethod.GET})
-	@ResponseBody
-	public ResultVo<Payment> getPaymentById(@RequestParam("id") Long id) {
+	@GetMapping(value = "/getPaymentById/{id}/")
+	public ResultVo<Payment> getPaymentById(@PathVariable("id") Long id) {
         //返回对象
 		ResultVo<Payment> resultVo = new ResultVo<>();
 		if (id == null) {
@@ -79,6 +77,7 @@ public class PaymentController {
 		    return resultVo;
 		} catch (Exception e) {
 		    logger.error("根据id，获取数据异常:",e.getMessage());
+		    e.printStackTrace();
 			return ResultVoFactory.errorResult("根据id，获取数据异常:"+e.getMessage());
 		}
 		
@@ -92,8 +91,7 @@ public class PaymentController {
 	 * @param payment
 	 * @return ResultVo
 	 */
-	@RequestMapping(value="/insertOrUpdatePayment",method={RequestMethod.POST})
-	@ResponseBody
+	@PostMapping(value="/insertOrUpdatePayment")
 	public ResultVo<String> insertOrUpdatePayment(@RequestBody Payment payment) {
 		try {
 		    //新增或修改数据
@@ -113,9 +111,8 @@ public class PaymentController {
 	 * @param  id  主键id
 	 * @return ResultVo
 	 */
-	@RequestMapping(value="/deletePaymentById",method=RequestMethod.DELETE)
-	@ResponseBody
-	public ResultVo<String> deletePaymentById(@RequestParam("id") Long id) {
+	@DeleteMapping(value="/deletePaymentById/{id}/")
+	public ResultVo<String> deletePaymentById(@PathVariable("id") Long id) {
 		//数据验证
 		if (id == null) {
 			return ResultVoFactory.errorResult("参数传递错误ID");

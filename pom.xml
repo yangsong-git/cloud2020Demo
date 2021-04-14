@@ -11,6 +11,8 @@
 
   <modules>
     <module>cloud-provider-payment8001</module>
+      <module>cloud-consumer-order80</module>
+      <module>cloud-common</module>
   </modules>
 
 
@@ -68,11 +70,11 @@
                 <version>${druid.verison}</version>
             </dependency>
             <!-- mybatis-springboot整合 -->
-            <dependency>
-                <groupId>org.mybatis.spring.boot</groupId>
-                <artifactId>mybatis-spring-boot-starter</artifactId>
-                <version>${mybatis.spring.boot.verison}</version>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.mybatis.spring.boot</groupId>-->
+<!--                <artifactId>mybatis-spring-boot-starter</artifactId>-->
+<!--                <version>${mybatis.spring.boot.verison}</version>-->
+<!--            </dependency>-->
             <!--lombok-->
             <dependency>
                 <groupId>org.projectlombok</groupId>
@@ -96,6 +98,11 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus</artifactId>
                 <version>2.3</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatisplus-spring-boot-starter</artifactId>
+                <version>1.0.5</version>
             </dependency>
             <!-- 模版引擎jar -->
             <dependency>
@@ -124,5 +131,4 @@
             </plugin>
         </plugins>
     </build>
-
 </project>

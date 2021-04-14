@@ -1,4 +1,4 @@
-package com.ys.springcloud.entities.core;
+package com.ys.springcloud.core;
 
 /**
  * 

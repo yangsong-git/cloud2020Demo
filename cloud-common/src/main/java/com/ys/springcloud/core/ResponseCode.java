@@ -1,4 +1,4 @@
-package com.ys.springcloud.entities.core;
+package com.ys.springcloud.core;
 /**
  * 
  * ResponseCode:系统提示信息代码编号
