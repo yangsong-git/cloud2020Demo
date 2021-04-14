@@ -51,7 +51,7 @@ public class PaymentController {
     		return ResultVoFactory.successResult(pageResult);
 		} catch (Exception e) {
 			logger.error("获取分页异常:",e.getMessage());
-			return ResultVoFactory.errorResult("获取分页异常:"+e.getMessage());
+			return ResultVoFactory.errorResult("获取分页异常："+e.getMessage());
 		}
 	}
 	
