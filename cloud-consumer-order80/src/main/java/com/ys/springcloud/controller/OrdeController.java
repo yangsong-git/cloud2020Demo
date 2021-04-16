@@ -27,11 +27,26 @@ public class OrdeController {
     public static final String PAYMENT_URL = "http://localhost:8001";
     @Autowired
     private RestTemplate restTemplate;
+    /**
+     * 插入数据
+     * @author   yangsong
+     * @date     2021/4/16 19:34
+     * @param payment: 插入数据的对象
+     * @return: com.ys.springcloud.core.ResultVo<com.ys.springcloud.model.Payment>
+     */
     @GetMapping("/insertOrUpdatePayment")
     public ResultVo<Payment> insertOrUpdatePayment(Payment payment){
         return restTemplate.postForObject(PAYMENT_URL+"/payment/insertOrUpdatePayment",payment,ResultVo.class);
 //        return ResultVoFactory.successResult("","操作成功");
     }
+    /**
+     * 根据ID查询数据
+     *
+     * @author   yangsong
+     * @date     2021/4/16 19:34
+     * @param id:
+     * @return: com.ys.springcloud.core.ResultVo<com.ys.springcloud.model.Payment>
+     */
     @GetMapping("/getPaymentById/{id}")
     public ResultVo<Payment> getPaymentById(@PathVariable("id") Long id){
         return restTemplate.getForObject(PAYMENT_URL+"/payment/getPaymentById/"+id+"/",ResultVo.class);

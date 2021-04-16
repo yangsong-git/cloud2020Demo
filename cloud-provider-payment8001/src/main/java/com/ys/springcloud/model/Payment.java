@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.enums.IdType;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.activerecord.Model;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
@@ -16,6 +17,7 @@ import lombok.NoArgsConstructor;
  */
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
 public class Payment extends Model<Payment> {
 
     private static final long serialVersionUID = 1L;
@@ -30,26 +32,11 @@ public class Payment extends Model<Payment> {
      */
    private String serial;
 
-
-   public Long getId() {
-      return id;
-   }
-
-   public void setId(Long id) {
-      this.id = id;
-   }
-
-   public String getSerial() {
-      return serial;
-   }
-
-   public void setSerial(String serial) {
-      this.serial = serial;
-   }
-
    public static final String ID = "id";
 
    public static final String SERIAL = "serial";
+
+
 
    @Override
    protected Serializable pkVal() {
