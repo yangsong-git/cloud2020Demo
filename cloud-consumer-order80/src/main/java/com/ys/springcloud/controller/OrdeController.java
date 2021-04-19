@@ -5,6 +5,7 @@ import com.ys.springcloud.core.ResultVoFactory;
 import com.ys.springcloud.model.Payment;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,8 @@ import javax.annotation.Resource;
 @RestController
 @RequestMapping("/consumer/payment")
 public class OrdeController {
-    public static final String PAYMENT_URL = "http://localhost:8001";
+//    public static final String PAYMENT_URL = "http://localhost:8001";
+    public static final String PAYMENT_URL = "http://CLOUD-PAYMENT-SERVICE";
     @Autowired
     private RestTemplate restTemplate;
     /**
@@ -49,7 +51,12 @@ public class OrdeController {
      */
     @GetMapping("/getPaymentById/{id}")
     public ResultVo<Payment> getPaymentById(@PathVariable("id") Long id){
-        return restTemplate.getForObject(PAYMENT_URL+"/payment/getPaymentById/"+id+"/",ResultVo.class);
+        ResponseEntity<ResultVo> forEntity = restTemplate.getForEntity(PAYMENT_URL + "/payment/getPaymentById/" + id + "/", ResultVo.class);
+        if (forEntity.getStatusCode().is2xxSuccessful()){
+            return forEntity.getBody();
+        }else {
+            return ResultVoFactory.errorResult("查询失败");
+        }
 //        return ResultVoFactory.successResult("","操作成功");
     }
 }

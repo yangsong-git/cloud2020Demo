@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: 8002
 
 spring:
   application:
@@ -25,8 +25,7 @@ eureka:
     # eureka注册中心地址配置
       service-url:
         defaultZone: http://eureka7001.com:7001/eureka/
-    # 隐藏主机IP的别名
+  # 隐藏主机IP的别名
   instance:
-    instance-id: payment8001
+    instance-id: payment8002
     prefer-ip-address: true
-

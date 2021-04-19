@@ -1,0 +1,16 @@
+server:
+  port: 8000
+
+spring:
+  application:
+    name: consul-consumer-service #服务名称
+
+
+###################### consule 注册中心地址 ##########################
+cloud:
+  consul:
+    host: localhost
+    port: 8500
+    discovery:
+
+      service-name: ${spring.application.name}
