@@ -2,17 +2,20 @@ package com.ys.springcloud.controller;
 
 import com.ys.springcloud.core.ResultVo;
 import com.ys.springcloud.core.ResultVoFactory;
+import com.ys.springcloud.lb.MyLoadBalanced;
 import com.ys.springcloud.model.Payment;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.ServiceInstance;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * 功能描述：
@@ -29,6 +32,10 @@ public class OrdeController {
     public static final String PAYMENT_URL = "http://CLOUD-PAYMENT-SERVICE";
     @Autowired
     private RestTemplate restTemplate;
+    @Autowired
+    private MyLoadBalanced myLoadBalanced;
+    @Autowired
+    private DiscoveryClient discoveryClient;
     /**
      * 插入数据
      * @author   yangsong
@@ -58,5 +65,14 @@ public class OrdeController {
             return ResultVoFactory.errorResult("查询失败");
         }
 //        return ResultVoFactory.successResult("","操作成功");
+    }
+    @GetMapping(value = "getServerPort")
+    public String getServerProt(){
+        List<ServiceInstance> instances = discoveryClient.getInstances("CLOUD-PAYMENT-SERVICE");
+        if (!CollectionUtils.isEmpty(instances)){
+            ServiceInstance instance = myLoadBalanced.instance(instances);
+           return restTemplate.getForObject(instance.getUri()+"/payment/getServerPort/",String.class);
+        }
+        return null;
     }
 }

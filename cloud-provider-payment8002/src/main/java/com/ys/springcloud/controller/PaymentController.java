@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 支付表 控制层
@@ -128,5 +129,21 @@ public class PaymentController {
 		    logger.error("根据id，删除数据异常：",e.getMessage());
 			return ResultVoFactory.errorResult("根据id，删除数据异常："+e.getMessage());
 		}
+	}
+
+	@GetMapping(value = "/getServerPort/")
+	public String getServerPort(){
+		return serverPort;
+	}
+
+	@GetMapping(value = "/paymentFeign/")
+	public String paymentFeign(){
+		try {
+			TimeUnit.SECONDS.sleep(3);
+		}catch (Exception e){
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		}
+		return serverPort;
 	}
 }

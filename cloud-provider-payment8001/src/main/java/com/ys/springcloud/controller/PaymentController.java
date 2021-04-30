@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -146,5 +147,20 @@ public class PaymentController {
 			logger.info(ins.getServiceId()+"\t"+ins.getHost()+"\t"+ins.getPort()+"\t"+ins.getUri());
 		});
 		return services;
+	}
+	@GetMapping(value = "/getServerPort/")
+	public String getServerPort(){
+		return serverPort;
+	}
+
+	@GetMapping(value = "/paymentFeign/")
+	public String paymentFeign(){
+		try {
+			TimeUnit.SECONDS.sleep(3);
+		}catch (Exception e){
+			e.printStackTrace();
+			throw new RuntimeException(e.getMessage());
+		}
+		return serverPort;
 	}
 }
