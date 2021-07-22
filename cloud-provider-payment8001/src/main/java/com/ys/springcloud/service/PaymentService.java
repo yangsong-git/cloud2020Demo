@@ -25,4 +25,6 @@ public interface PaymentService extends IService<Payment> {
 	 * @return PageResult
 	 */
 	public PageResult<Payment> selectPageList(Map<String,Object> params);
+
+	String testAop();
 }

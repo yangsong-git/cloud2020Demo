@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import com.ys.springcloud.dao.PaymentDao;
-import com.ys.springcloud.service.PaymentService;
 
 import java.util.List;
 import java.util.Map;
@@ -22,7 +21,7 @@ import java.util.Map;
  */
 @Service
 @Transactional
-public class PaymentServiceImpl extends ServiceImpl<PaymentDao, Payment> implements PaymentService {
+public class PaymentServiceImpl extends ServiceImpl<PaymentDao, Payment>  {
 
 
     @Autowired
@@ -38,7 +37,6 @@ public class PaymentServiceImpl extends ServiceImpl<PaymentDao, Payment> impleme
 	 *   参数2：sortOrder    排序字段升降级类型 desc,asc<br>
 	 * @return PageResult
 	 */
-    @Override
     public PageResult<Payment> selectPageList(Map<String,Object> params){
     	//当前页码数
     	Integer currentPage = Integer.parseInt(params.get("currentPage").toString());

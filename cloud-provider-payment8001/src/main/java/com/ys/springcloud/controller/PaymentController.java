@@ -1,4 +1,5 @@
 package com.ys.springcloud.controller;
+import com.ys.springcloud.config.AopTest;
 import com.ys.springcloud.core.PageCommonInfo;
 import com.ys.springcloud.core.PageResult;
 import com.ys.springcloud.core.ResultVo;
@@ -148,9 +149,10 @@ public class PaymentController {
 		});
 		return services;
 	}
+
 	@GetMapping(value = "/getServerPort/")
 	public String getServerPort(){
-		return serverPort;
+		return "serverPort";
 	}
 
 	@GetMapping(value = "/paymentFeign/")
@@ -162,5 +164,9 @@ public class PaymentController {
 			throw new RuntimeException(e.getMessage());
 		}
 		return serverPort;
+	}
+	@GetMapping(value = "/getTest/")
+	public String getTest(){
+		return paymentService.testAop();
 	}
 }

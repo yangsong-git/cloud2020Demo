@@ -1,6 +1,7 @@
 package com.ys.springcloud.service.impl;
 
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;
+import com.ys.springcloud.config.AopTest;
 import com.ys.springcloud.core.PageResult;
 import com.ys.springcloud.dao.PaymentDao;
 import com.ys.springcloud.model.Payment;
@@ -53,5 +54,11 @@ public class PaymentServiceImpl extends ServiceImpl<PaymentDao, Payment> impleme
     	pageResult.setTotal(page.getTotal());
     	return pageResult;
     }
+
+	@Override
+	@AopTest
+	public String testAop() {
+		return "200";
+	}
 
 }

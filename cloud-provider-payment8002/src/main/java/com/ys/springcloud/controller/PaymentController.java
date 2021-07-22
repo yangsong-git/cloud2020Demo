@@ -5,7 +5,7 @@ import com.ys.springcloud.core.PageResult;
 import com.ys.springcloud.core.ResultVo;
 import com.ys.springcloud.core.ResultVoFactory;
 import com.ys.springcloud.model.Payment;
-import com.ys.springcloud.service.PaymentService;
+import com.ys.springcloud.service.impl.PaymentServiceImpl;
 import com.ys.springcloud.util.CommonUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,7 +30,7 @@ public class PaymentController {
 	@Value("${server.port}")
 	private String serverPort;
     @Autowired
-    public PaymentService paymentService;
+    public PaymentServiceImpl paymentService;
 
     /**
      * 分页查询接口
